@@ -1,42 +1,32 @@
 #include "miVector.h"
 #include <iostream>
-
 using namespace std;
-
 /**
- * ============================================================================
  * UNIVERSIDAD MILITAR NUEVA GRANADA
  * Programa de Ingenieria en Multimedia
  * Sara Sofia Chavez Galeano
  * Codigo: 1203029
- * Fecha de realizacion: 30/09/2026
- * 
+ * Feca de realizacion: 30/09/2026
  * EJEMPLO DE ESTUDIO
  * Tema: Estructuras de Datos Secuenciales, Memoria Dinamica y Pilas (Stack)
- * 
  * Descripcion de la aplicacion:
- * Dada la clase base CmiVector analizada en clase para la gestion de arreglos 
- * dinamicos de tipo entero, este desarrollo permite extender sus funcionalidades 
- * para implementarla como una Estructura de Datos Lineal tipo PILA (Stack) 
+ * Dada la clase base CmiVector analizada en clase para la gestion de arreglos
+ * dinamicos de tipo entero, este desarrollo permite extender sus funcionalidades
+ * para implementarla como una Estructura de Datos Lineal tipo PILA (Stack)
  * con capacidad de autorredimension dinamicamente controlada.
- * 
  * Convencion de Estados del Vector/Pila:
  *   -1 : No creado / Error de asignacion en memoria
  *    0 : Vacio (Arreglo creado pero sin elementos almacenados, aN = 0)
  *   >0 : Con datos (Arreglo con aN elementos almacenados)
- * 
  * MOMENTO 2 - Implementacion de metodos de CmiVector
- * ============================================================================
  */
-
-// Constructor: Inicializa las variables en un estado vacio/seguro (Estado 0: Vacio)
+ // Constructor: Inicializa las variables en un estado vacio/seguro (Estado 0: Vacio)
 CmiVector::CmiVector() {
     aM = 0;
     aN = 0;        // Cantidad de elementos almacenados
     aI = false;   // Estado inicial de operacion
     aArr = NULL;
 }
-
 // Destructor: Libera la memoria si existe y reinicia los atributos
 CmiVector::~CmiVector() {
     if (aArr != NULL) {
@@ -47,20 +37,15 @@ CmiVector::~CmiVector() {
     aN = 0;
     aI = false;
 }
-
 // Getters y Setters
 int CmiVector::getaM() { return aM; }
 void CmiVector::setaM(int paM) { aM = paM; }
-
 int CmiVector::getaN() { return aN; }
 void CmiVector::setaN(int paN) { aN = paN; }
-
 int* CmiVector::getaArr() { return aArr; }
 void CmiVector::setaArr(int* paArr) { aArr = paArr; }
-
 bool CmiVector::getaI() { return aI; }
 void CmiVector::setaI(bool paI) { aI = paI; }
-
 // Crear el arreglo dinamico base e inicializar elementos en 0 (Pasa a Estado 0: Vacio)
 void CmiVector::mCrearVec(int pTam) {
     if (pTam > 0 && pTam < 1000) {
@@ -80,20 +65,17 @@ void CmiVector::mCrearVec(int pTam) {
         aI = false;  // Estado -1 / Falla al crear el vector
     }
 }
-
 // Insertar o asignar un dato en la posicion pk (0 <= pk < aM).
 // Si se asigna en una posicion mayor que aN-1, se actualiza aN al nuevo tamaño utilizado.
 void CmiVector::minsertar(int pdato, int pk) {
     if (aArr != NULL && pk >= 0 && pk < aM) {
         cout << "Antes de insertar: ";
         mVer();
-
         aArr[pk] = pdato; // Asignacion directa en la posicion
         if (pk >= aN) {
             aN = pk + 1; // Actualiza la cantidad de elementos usados (Transicion a Estado >0: Con datos)
         }
         aI = true;
-
         cout << "Despues de insertar: ";
         mVer();
     }
@@ -101,11 +83,9 @@ void CmiVector::minsertar(int pdato, int pk) {
         aI = false; // Falla: vector no creado o indice fuera de rango
     }
 }
-
 // Consultar el valor en la posicion pk sin modificar el vector (0 <= pk < aN)
 int CmiVector::mver(int pk) {
     int aux = -1; // Valor por defecto si falla la busqueda
-
     // Rango valido: desde 0 hasta aN - 1
     if (aArr != NULL && pk >= 0 && pk < aN) {
         aux = aArr[pk];
@@ -117,7 +97,6 @@ int CmiVector::mver(int pk) {
 
     return aux;
 }
-
 // Metodo mVer() para mostrar todo el vector por consola
 void CmiVector::mVer() {
     if (aArr != NULL && aN > 0) {
@@ -131,14 +110,12 @@ void CmiVector::mVer() {
         cout << "El vector esta vacio o no ha sido creado." << endl;
     }
 }
-
 // Eliminar un dato en la posicion pk desplanzando elementos a la izquierda (0 <= pk < aN)
 int CmiVector::mEliminar(int pk) {
     int aux = -1;
     if (aArr != NULL && pk >= 0 && pk < aN) {
         cout << "Antes de eliminar: ";
         mVer();
-
         aux = aArr[pk];
         // Desplazamos los elementos a la izquierda para cubrir la vacante
         for (int i = pk; i < aN - 1; i++) {
@@ -146,7 +123,6 @@ int CmiVector::mEliminar(int pk) {
         }
         aN--;
         aI = true;
-
         cout << "Despues de eliminar: ";
         mVer();
     }
@@ -155,17 +131,14 @@ int CmiVector::mEliminar(int pk) {
     }
     return aux;
 }
-
 // Destruir el vector en memoria Heap y devolver una copia de respaldo antes de borrarlo
 int* CmiVector::mDestruir() {
     if (aArr == NULL || aN == 0) {
         aI = false;
         return NULL;
     }
-
     cout << "Antes de destruir: ";
     mVer();
-
     int* vAux = new int[aN]; // Arreglo para guardar la copia
     for (int i = 0; i < aN; i++) {
         vAux[i] = aArr[i];
@@ -265,7 +238,6 @@ void CmiVector::mBurbuja() {
         aI = false;
     }
 }
-
 // Ordenamiento por Insercion de un nuevo dato manteniendo el vector ordenado
 void CmiVector::mOrdIns(int pdato) {
     // Se inserta pdato manteniendo el vector ordenado
@@ -289,3 +261,77 @@ void CmiVector::mOrdIns(int pdato) {
         aI = false;
     }
 }
+//Busqueda Secuencial ordenada
+int CmiVector::mbusquedaSec(int pdato) {
+    int i = 0;
+    if (aArr!=NULL && aN>0) {
+        i = 1;
+        //mientras que el arreglo en posicion i sea diferente a el dato que se busca y menor o igual a la cantidad de elementos actuales i pasa a revisar la siguiente posicion
+        while (aArr[i]!= pdato && i<=aN) {
+            while (aArr[i] <= pdato) {
+                i++;
+            }
+        }
+        if (aArr[i] == pdato) {
+            aI = true;
+            return i;
+        }
+        else {
+            aI = false;
+        }
+        
+    }
+    else {
+        aI = false;
+    }
+    return i;
+}
+//Busqueda Secuencial desordenada
+int CmiVector::mbusquedaSecdes(int pdato) {
+    int i = 0;
+    if (aArr != NULL && aN > 0) {
+        i = 1;
+        //mientras que el arreglo en posicion i sea diferente a el dato que se busca y menor o igual a la cantidad de elementos actuales i pasa a revisar la siguiente posicion
+        while (aArr[i] != pdato && i <= aN) {
+            i++;
+        }
+        if (aArr[i] == pdato) {
+            aI = true;
+            return i;
+        }
+        else {
+            aI = false;
+        }
+
+    }
+    else {
+        aI = false;
+    }
+    return i;
+}
+//Busqueda Binaria
+int CmiVector::mbusquedabinaria(int pdato) {
+    int i = 0;
+    int izq = 0;
+    int dere = 0;
+    int Cen = 0;
+    if (aArr != NULL && aN >= 2) {
+        //debo dividir el intervalo de busqueda en dos partes,comparando el elemento buscado con el central
+        //en caso de no ser iguales se redefinen los extremos del intervalo(segun el elemento central sea mayor 
+        //o menor que el buscado) disminuyendo el espacio de busqueda. El proceso termina cuando el elemento es el encontrado
+        izq = 1;
+        dere = aN;
+        Cen = (dere + izq) / 2;
+        while (aArr[Cen] != pdato && Cen <= aN) {
+            if (Arr[Cen]) {
+
+            }
+        }
+
+    }
+    else {
+        aI = false;
+    }
+    return i;
+}
+
