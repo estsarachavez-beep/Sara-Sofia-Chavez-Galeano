@@ -4,10 +4,32 @@
 using namespace std;
 
 /**
- * MOMENTO 3: Menu principal e interaccion con el usuario
+ * ============================================================================
+ * UNIVERSIDAD MILITAR NUEVA GRANADA
+ * Programa de Ingenieria en Multimedia
+ * Sara Sofia Chavez Galeano
+ * Codigo: 1203029
+ * Fecha de realizacion: 30/09/2026
+ * 
+ * EJEMPLO DE ESTUDIO
+ * Tema: Estructuras de Datos Secuenciales, Memoria Dinamica y Pilas (Stack)
+ * 
+ * Descripcion de la aplicacion:
+ * Dada la clase base CmiVector analizada en clase para la gestion de arreglos 
+ * dinamicos de tipo entero, este desarrollo permite extender sus funcionalidades 
+ * para implementarla como una Estructura de Datos Lineal tipo PILA (Stack) 
+ * con capacidad de autorredimension dinamicamente controlada.
+ * 
+ * Convencion de Estados:
+ *  -1 : No creado / Error de asignacion en memoria
+ *   0 : Vacio (Objeto/arreglo creado pero aN = 0)
+ *  >0 : Con datos (Arreglo con aN elementos almacenados)
+ * 
+ * MOMENTO 3 - Menu principal, prueba de metodos e interaccion con el usuario
+ * ============================================================================
  */
 
- // Declaracion de funciones auxiliares para cada opcion del menu
+// Declaracion de funciones auxiliares para cada opcion del menu
 void fnCrearVector(CmiVector& obj);
 void fnInsertarDato(CmiVector& obj);
 void fnVerDato(CmiVector& obj);
@@ -20,6 +42,9 @@ void mOrdlineal(CmiVector& obj);
 void mBurbuja(CmiVector& obj);
 void mOrdIns(CmiVector& obj);
 
+/**
+ * @brief Función principal que administra el flujo del menu y gestiona los objetos CmiVector.
+ */
 int main() {
     CmiVector obj1;
     CmiVector obj2;
@@ -51,6 +76,7 @@ int main() {
         case 2:
             fnInsertarDato(obj1);
             break;
+
         case 3:
             fnVerDato(obj1);
             break;
@@ -58,6 +84,7 @@ int main() {
         case 4:
             fnVerTodoElVector(obj1);
             break;
+
         case 5:
             fnEliminarDato(obj1);
             break;
@@ -95,8 +122,11 @@ int main() {
     return 0;
 }
 
-// DEFINICION DE LAS FUNCIONES PARA CADA CASE
+// ============================================================================
+// DEFINICION DE LAS FUNCIONES AUXILIARES PARA CADA OPCION DEL MENU
+// ============================================================================
 
+// 1. CREAR VECTOR
 void fnCrearVector(CmiVector& obj) {
     int vx = 0;
     cout << "Ingrese el tamano del vector: ";
@@ -110,6 +140,7 @@ void fnCrearVector(CmiVector& obj) {
     }
 }
 
+// 2. INSERTAR DATO EN POSICIÓN PK
 void fnInsertarDato(CmiVector& obj) {
     int vdato = 0, vpos = 0, vx = 0, resul = 0;
     cout << "Ingrese el dato a insertar: ";
@@ -135,6 +166,7 @@ void fnInsertarDato(CmiVector& obj) {
         cout << "No se pudo insertar el dato." << endl;
     }
 }
+
 // 3. VER DATO EN UNA POSICIÓN ESPECÍFICA (Ajustado a índices base 0)
 void fnVerDato(CmiVector& obj) {
     int vx = 0, resul = 0;
@@ -144,8 +176,7 @@ void fnVerDato(CmiVector& obj) {
         return;
     }
 
-    cout << "Ingrese la posicion que quiere ver (0 a " << obj.getaN()
-- 1 << "): ";
+    cout << "Ingrese la posicion que quiere ver (0 a " << obj.getaN() - 1 << "): ";
     cin >> vx;
 
     resul = obj.mver(vx);
@@ -162,6 +193,8 @@ void fnVerDato(CmiVector& obj) {
 void fnVerTodoElVector(CmiVector& obj) {
     obj.mVer();
 }
+
+// 5. ELIMINAR DATO POR POSICIÓN
 void fnEliminarDato(CmiVector& obj) {
     int vx = 0, Res = 0, resul = 0;
     cout << "¿Que posicion desea eliminar?: ";
@@ -186,6 +219,7 @@ void fnEliminarDato(CmiVector& obj) {
     }
 }
 
+// 6. DESTRUIR VECTOR Y MOSTRAR DATOS LIBERADOS
 void fnDestruirVector(CmiVector& obj) {
     int vx = obj.getaN();
     int* vAux2 = obj.mDestruir();
@@ -201,6 +235,7 @@ void fnDestruirVector(CmiVector& obj) {
     }
 }
 
+// 7. SUMAR DOS VECTORES Y ALMACENAR EN VECTOR RESULTADO
 void fnSumarVectores(CmiVector& obj1, CmiVector& obj2, CmiVector& obj3) {
     int tam = 0;
     cout << "Ingrese el tamano para los vectores a sumar: ";
@@ -259,7 +294,7 @@ void fnSumarVectores(CmiVector& obj1, CmiVector& obj2, CmiVector& obj3) {
     }
 }
 
-// ORDENAMIENTO LINEAL
+// 8. ORDENAMIENTO LINEAL / SELECCIÓN
 void mOrdlineal(CmiVector& obj1) {
     obj1.mOrdlineal();
 
@@ -271,7 +306,7 @@ void mOrdlineal(CmiVector& obj1) {
     }
 }
 
-// ORDENAMIENTO BURBUJA
+// 9. ORDENAMIENTO BURBUJA
 void mBurbuja(CmiVector& obj1) {
     obj1.mBurbuja();
 
@@ -283,7 +318,7 @@ void mBurbuja(CmiVector& obj1) {
     }
 }
 
-// ORDENAMIENTO POR INSERCION
+// 10. ORDENAMIENTO POR INSERCIÓN
 void mOrdIns(CmiVector& obj1) {
     int vx = 0;
     cout << "Ingrese el dato a insertar de forma ordenada: ";
