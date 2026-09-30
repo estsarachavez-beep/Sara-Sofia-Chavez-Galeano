@@ -4,22 +4,32 @@
 using namespace std;
 
 /**
- * Universidad Militar Nueva Granada
+ * ============================================================================
+ * UNIVERSIDAD MILITAR NUEVA GRANADA
  * Programa de Ingenieria en Multimedia
  * Sara Sofia Chavez Galeano
- * Codigo 1203029
- * Fecha de realizacion 30/09/2026
-* Descripcion de la aplicacion:
- * El programa administra un arreglo dinamico de enteros mediante la
-clase CmiVector.
- * Se sobrecarga el metodo mVer para tener un solo punto de acceso a
-la visualizacion:
- *  - mVer(): Imprime en pantalla el vector completo con sus metricas
-(aN, aM, aI).
- *  - mVer(int pk): Consulta y retorna el elemento especifico en el indice pk.
+ * Codigo: 1203029
+ * Fecha de realizacion: 30/09/2026
+ * 
+ * EJEMPLO DE ESTUDIO
+ * Tema: Estructuras de Datos Secuenciales, Memoria Dinamica y Pilas (Stack)
+ * 
+ * Descripcion de la aplicacion:
+ * Dada la clase base CmiVector analizada en clase para la gestion de arreglos 
+ * dinamicos de tipo entero, este desarrollo permite extender sus funcionalidades 
+ * para implementarla como una Estructura de Datos Lineal tipo PILA (Stack) 
+ * con capacidad de autorredimension dinamicamente controlada.
+ * 
+ * Convencion de Estados del Vector/Pila:
+ *   -1 : No creado / Error de asignacion en memoria
+ *    0 : Vacio (Arreglo creado pero sin elementos almacenados, aN = 0)
+ *   >0 : Con datos (Arreglo con aN elementos almacenados)
+ * 
+ * MOMENTO 2 - Implementacion de metodos de CmiVector
+ * ============================================================================
  */
 
- // Constructor: Inicializa las variables en un estado vacio/seguro
+// Constructor: Inicializa las variables en un estado vacio/seguro (Estado 0: Vacio)
 CmiVector::CmiVector() {
     aM = 0;
     aN = 0;        // Cantidad de elementos almacenados
@@ -27,7 +37,7 @@ CmiVector::CmiVector() {
     aArr = NULL;
 }
 
-// Destructor: Libera la memoria si existe
+// Destructor: Libera la memoria si existe y reinicia los atributos
 CmiVector::~CmiVector() {
     if (aArr != NULL) {
         delete[] aArr;
@@ -51,7 +61,7 @@ void CmiVector::setaArr(int* paArr) { aArr = paArr; }
 bool CmiVector::getaI() { return aI; }
 void CmiVector::setaI(bool paI) { aI = paI; }
 
-// Crear el arreglo dinamico
+// Crear el arreglo dinamico base e inicializar elementos en 0 (Pasa a Estado 0: Vacio)
 void CmiVector::mCrearVec(int pTam) {
     if (pTam > 0 && pTam < 1000) {
         if (aArr != NULL) {
@@ -63,26 +73,24 @@ void CmiVector::mCrearVec(int pTam) {
         for (int i = 0; i < aM; i++) {
             aArr[i] = 0;
         }
-        aN = 0;
-        aI = true;
+        aN = 0;      // Pasa a Estado 0 (creado pero vacio)
+        aI = true;   // Operacion exitosa
     }
     else {
-        aI = false;
+        aI = false;  // Estado -1 / Falla al crear el vector
     }
 }
 
-// Insertar un dato en la posicion pk (0 <= pk <= aN)
 // Insertar o asignar un dato en la posicion pk (0 <= pk < aM).
-// Si se asigna en una posicion mayor que aN-1, se actualiza aN al
-nuevo tama o utilizado.
+// Si se asigna en una posicion mayor que aN-1, se actualiza aN al nuevo tamaño utilizado.
 void CmiVector::minsertar(int pdato, int pk) {
     if (aArr != NULL && pk >= 0 && pk < aM) {
         cout << "Antes de insertar: ";
         mVer();
 
-        aArr[pk] = pdato; // Asignaci n directa en la posici n
+        aArr[pk] = pdato; // Asignacion directa en la posicion
         if (pk >= aN) {
-            aN = pk + 1; // Actualiza la cantidad de elementos usados
+            aN = pk + 1; // Actualiza la cantidad de elementos usados (Transicion a Estado >0: Con datos)
         }
         aI = true;
 
@@ -90,15 +98,15 @@ void CmiVector::minsertar(int pdato, int pk) {
         mVer();
     }
     else {
-        aI = false;
+        aI = false; // Falla: vector no creado o indice fuera de rango
     }
 }
 
-// CORRECCIÓN DEL MÉTODO mver(pk)
+// Consultar el valor en la posicion pk sin modificar el vector (0 <= pk < aN)
 int CmiVector::mver(int pk) {
-    int aux = -1; // Valor por defecto si falla la búsqueda
+    int aux = -1; // Valor por defecto si falla la busqueda
 
-    // Rango válido: desde 0 hasta aN - 1
+    // Rango valido: desde 0 hasta aN - 1
     if (aArr != NULL && pk >= 0 && pk < aN) {
         aux = aArr[pk];
         aI = true;
@@ -110,7 +118,7 @@ int CmiVector::mver(int pk) {
     return aux;
 }
 
-// Método mVer() para mostrar todo el vector
+// Metodo mVer() para mostrar todo el vector por consola
 void CmiVector::mVer() {
     if (aArr != NULL && aN > 0) {
         cout << "Vector: [ ";
@@ -120,11 +128,11 @@ void CmiVector::mVer() {
         cout << "]" << endl;
     }
     else {
-        cout << "El vector está vacío o no ha sido creado." << endl;
+        cout << "El vector esta vacio o no ha sido creado." << endl;
     }
 }
 
-// Eliminar un dato en la posicion pk (0 <= pk < aN)
+// Eliminar un dato en la posicion pk desplanzando elementos a la izquierda (0 <= pk < aN)
 int CmiVector::mEliminar(int pk) {
     int aux = -1;
     if (aArr != NULL && pk >= 0 && pk < aN) {
@@ -148,7 +156,7 @@ int CmiVector::mEliminar(int pk) {
     return aux;
 }
 
-// Destruir el vector y devolver una copia de los datos antes de borrarlo
+// Destruir el vector en memoria Heap y devolver una copia de respaldo antes de borrarlo
 int* CmiVector::mDestruir() {
     if (aArr == NULL || aN == 0) {
         aI = false;
@@ -200,11 +208,10 @@ void fSumar(int* pV1, int* pV2, CmiVector& obj3) {
     obj3.mSumar(pV1, pV2);
 }
 
-// Ordenamiento Lineal / Seleccion
+// Ordenamiento Lineal / Seleccion (ordena elementos del indice 0 a aN - 1)
 void CmiVector::mOrdlineal() {
     int vAux = 0;
-    // Se corrigen indices a base 0 (de 0 a aN - 1) para evitar
-desbordamientos y bucles infinitos
+    // Se corrigen indices a base 0 (de 0 a aN - 1) para evitar desbordamientos y bucles infinitos
     if (aArr != NULL && aN > 1) {
         cout << "Antes de ordenamiento (seleccion): ";
         mVer();
@@ -228,13 +235,12 @@ desbordamientos y bucles infinitos
     }
 }
 
-// Ordenamiento Burbuja
+// Ordenamiento Burbuja (intercambio adyacente en el rango base 0)
 void CmiVector::mBurbuja() {
     int vAux = 0;
     bool flag = true;
 
-    // Se ajustan indices a base 0 (i va de 0 a aN - 2 para que i + 1
-no se salga del arreglo)
+    // Se ajustan indices a base 0 (i va de 0 a aN - 2 para que i + 1 no se salga del arreglo)
     if (aArr != NULL && aN >= 2) {
         cout << "Antes de ordenamiento (burbuja): ";
         mVer();
@@ -260,7 +266,7 @@ no se salga del arreglo)
     }
 }
 
-// Ordenamiento por Insercion de un nuevo dato
+// Ordenamiento por Insercion de un nuevo dato manteniendo el vector ordenado
 void CmiVector::mOrdIns(int pdato) {
     // Se inserta pdato manteniendo el vector ordenado
     if (aArr != NULL && aN < aM) {
