@@ -8,6 +8,19 @@
  * Codigo: 1203029
  * Tania Lorena Triana Espitia
  * Codigo: 1203190
+ * Fecha de Realizacion: 4/11/2026
+ *Descripcion de la aplicacion:  
+ * Aplicacion de consola en C++ para practicar estructuras de datos lineales
+ * implementadas con nodos enlazados y memoria dinamica. Desde el menu
+ * principal, el usuario puede trabajar con una lista, una cola y una pila.
+ * La lista permite crear, insertar, consultar y eliminar datos por posicion,
+ * sumar listas, ordenar elementos e implementar busquedas secuenciales y
+ * binarias. La cola permite insertar elementos al final y eliminarlos desde
+ * el frente, siguiendo el principio FIFO (primero en entrar, primero en salir).
+ * La pila permite apilar y desapilar elementos desde el tope, siguiendo el
+ * principio LIFO (ultimo en entrar, primero en salir). Las tres estructuras
+ * permiten mostrar sus elementos y liberar la memoria al destruirse; comparten
+ * la clase cnodo para enlazar los datos.
 */ 
 class clista {
 private:
