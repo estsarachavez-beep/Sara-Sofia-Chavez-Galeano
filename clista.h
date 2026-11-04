@@ -1,6 +1,6 @@
 #pragma once
-#include "cnodo.h"
-#include <iostream>
+#include "cnodo.h"// Define los nodos enlazados que almacenan los elementos de la cola.
+#include <iostream>// Permite mostrar mensajes y datos en la consola.
 /*
  * Universidad Militar Nueva Granada
  * Programa de Ingenieria en Multimedia
