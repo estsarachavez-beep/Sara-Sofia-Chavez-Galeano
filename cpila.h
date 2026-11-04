@@ -1,35 +1,42 @@
 #pragma once
-#include "cnodo.h" // Incluye la clase cnodo para utilizar punteros autorreferenciados
-#include <iostream>
+#include "cnodo.h" // Permite construir y enlazar los nodos que forman la pila.
+#include <iostream> // Incluye operaciones de entrada y salida estándar.
 
+/**
+ * @brief Pila enlazada de enteros que sigue el principio LIFO.
+ *
+ * LIFO (Last In, First Out) significa que el último elemento apilado es el
+ * primero en salir. Las operaciones de inserción y eliminación se realizan
+ * en el tope de la pila.
+ */
 class cpila {
 private:
-	cnodo* aInicio; // Puntero al tope de la pila en memoria dinámica
-	cnodo* aP;      // Puntero al primero (Tope de la pila)
-	cnodo* aU;      // Puntero al último (Base de la pila)
-	int aN;         // Conteo de elementos almacenados
-	bool aI;        // Bandera de estado de la operación (true/false)
+	cnodo* aInicio; // Puntero al nodo del tope y comienzo del encadenamiento.
+	cnodo* aP;      // Referencia al primer nodo, que corresponde al tope.
+	cnodo* aU;      // Referencia al último nodo, que corresponde a la base.
+	int aN;         // Cantidad de elementos almacenados en la pila.
+	bool aI;        // Estado de éxito o fallo de la última operación.
 
 public:
-	cpila();  // Constructor por defecto
-	~cpila(); // Destructor para liberar la memoria dinámica
+	cpila();  // Construye una pila vacía e inicializa sus atributos.
+	~cpila(); // Destruye la pila y libera la memoria de sus nodos.
 
-	// Métodos Getters y Setters
-	int getaN();
-	void setaN(int paN);
-	bool getaI();
-	void setaI(bool paI);
-	cnodo* getaInicio();
-	void setaInicio(cnodo* paInicio);
-	cnodo* getaP();
-	void setaP(cnodo* paP);
-	cnodo* getaU();
-	void setaU(cnodo* paU);
+	// Métodos de acceso para consultar o modificar el estado interno.
+	int getaN();                    // Devuelve la cantidad de elementos.
+	void setaN(int paN);            // Actualiza el contador de elementos.
+	bool getaI();                   // Devuelve el estado de la última operación.
+	void setaI(bool paI);           // Actualiza el estado de la operación.
+	cnodo* getaInicio();            // Devuelve el puntero al tope/inicio.
+	void setaInicio(cnodo* paInicio); // Actualiza el puntero al inicio de la pila.
+	cnodo* getaP();                 // Devuelve el puntero al tope.
+	void setaP(cnodo* paP);         // Actualiza el puntero al tope.
+	cnodo* getaU();                 // Devuelve el puntero a la base.
+	void setaU(cnodo* paU);         // Actualiza el puntero a la base.
 
-	// Métodos principales de la Pila (LIFO)
-	void mCrear(int pdato);    // Crea el primer nodo en el tope de la pila
-	void mInsertar(int pdato); // Apilar (Push): Inserta un nodo en el tope (aInicio / aP)
-    void mVer();               // Muestra el contenido de la pila desde el tope (aP) hasta la base (aU)
-	int mEliminar();           // Elimina el nodo del tope y retorna su valor
-	void mDestruir();          // Libera todos los nodos que se repiten de la pila
+	// Operaciones principales de la pila (LIFO).
+	void mCrear(int pdato);         // Crea la pila con un primer elemento.
+	void mInsertar(int pdato);      // Apila (push) un nuevo elemento en el tope.
+	void mVer();                    // Muestra los elementos desde el tope hasta la base.
+	int mEliminar();                // Desapila (pop) y devuelve el valor que estaba en el tope.
+	void mDestruir();               // Libera todos los nodos y deja la pila vacía.
 };
