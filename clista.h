@@ -1,7 +1,14 @@
 #pragma once
 #include "cnodo.h"
 #include <iostream>
-
+/*
+ * Universidad Militar Nueva Granada
+ * Programa de Ingenieria en Multimedia
+ * Sara Sofia Chavez Galeano
+ * Codigo: 1203029
+ * Tania Lorena Triana Espitia
+ * Codigo: 1203190
+*/ 
 class clista {
 private:
 	cnodo* aInicio; // Puntero al inicio de la lista
