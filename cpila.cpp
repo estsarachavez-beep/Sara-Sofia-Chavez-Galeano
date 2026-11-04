@@ -22,16 +22,36 @@ cpila::~cpila() {
 }
 
 // Getters y Setters
-int cpila::getaN() { return aN; }
-void cpila::setaN(int paN) { aN = paN; }
-bool cpila::getaI() { return aI; }
-void cpila::setaI(bool paI) { aI = paI; }
-cnodo* cpila::getaInicio() { return aInicio; }
-void cpila::setaInicio(cnodo* paInicio) { aInicio = paInicio; }
-cnodo* cpila::getaP() { return aP; }
-void cpila::setaP(cnodo* paP) { aP = paP; }
-cnodo* cpila::getaU() { return aU; }
-void cpila::setaU(cnodo* paU) { aU = paU; }
+int cpila::getaN() { 
+	return aN; 
+}
+void cpila::setaN(int paN) {
+	aN = paN; 
+}
+bool cpila::getaI() { 
+	return aI;
+}
+void cpila::setaI(bool paI) {
+	aI = paI;
+}
+cnodo* cpila::getaInicio() { 
+	return aInicio;
+}
+void cpila::setaInicio(cnodo* paInicio) {
+	aInicio = paInicio;
+}
+cnodo* cpila::getaP() { 
+	return aP;
+}
+void cpila::setaP(cnodo* paP) { 
+	aP = paP;
+}
+cnodo* cpila::getaU() {
+	return aU;
+}
+void cpila::setaU(cnodo* paU) {
+	aU = paU;
+}
 
 /*
  * PRECONDICIÓN: La pila no debe estar creada (aInicio == NULL).
@@ -52,14 +72,14 @@ void cpila::mCrear(int pdato) { // Inicio del método mCrear
 		aI = false;   // Asigna falso indicando fallo
 	} // Fin del condicional
 	return;
-} // Fin del método mCrear
+} 
 
 /*
  * PRECONDICIÓN: La pila debe estar creada (aInicio != NULL).
  * POSCONDICIÓN: Apilar (Push): Inserta el nuevo nodo Q arriba del tope actual (aInicio / aP),
  *               lo enlaza (Q->asing = aInicio), actualiza aInicio = Q y aP = Q, incrementa aN y asigna aI = true.
  */
-void cpila::mInsertar(int pdato) { // Inicio del método mInsertar (Apilar / Push)
+void cpila::mInsertar(int pdato) { // Inicio del método mInsertar 
 	if (aInicio != NULL) { // Verifica que la pila exista
 		cnodo* Q = new cnodo(pdato); // Crea el nuevo nodo dinámico Q con el dato
 		
@@ -73,7 +93,27 @@ void cpila::mInsertar(int pdato) { // Inicio del método mInsertar (Apilar / Pus
 		aI = false;           // Asigna falso notificando fallo
 	} // Fin del condicional
 	return;
-} // Fin del método mInsertar
+} 
+/*
+ * PRECONDICIÓN: La pila debe estar creada y contener nodos (aInicio != NULL).
+ * POSCONDICIÓN: Recorre e imprime los elementos desde el tope (aP) hacia la base.
+ */
+void cpila::mVer() {
+	if (aInicio != NULL) {
+		cnodo* Q = aP; // Inicia en el tope de la pila
+		cout << "TOPE -> ";
+		while (Q != NULL) {
+			cout << "[" << Q->ainfo << "] -> ";
+			Q = Q->asing;
+		}
+		cout << "BASE (NULL)" << endl;
+		aI = true;
+	} else {
+		cout << "La pila esta vacia." << endl;
+		aI = false;
+	}
+	return;
+}
 
 /*
  * PRECONDICIÓN: La pila debe poseer elementos registrados (aInicio != NULL).
@@ -81,7 +121,7 @@ void cpila::mInsertar(int pdato) { // Inicio del método mInsertar (Apilar / Pus
  *               reordena aInicio al siguiente nodo, libera aP, actualiza aP = aInicio,
  *               decrementa aN y asigna aI = true.
  */
-int cpila::mEliminar() { // Inicio del método mEliminar (Desapilar / Pop)
+int cpila::mEliminar() { // Inicio del método mEliminar 
 	int vx = 0; // Declara la variable de retorno para el dato del tope
 	
 	if (aInicio != NULL) { // Verifica que existan nodos a desapilar
@@ -122,4 +162,4 @@ void cpila::mDestruir() { // Inicio del método mDestruir
 		aI = false;     // Notifica que ya estaba vacía
 	}
 	return;
-} // Fin del método mDestruir
+} 
