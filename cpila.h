@@ -29,7 +29,7 @@ public:
 	// Métodos principales de la Pila (LIFO)
 	void mCrear(int pdato);    // Crea el primer nodo en el tope de la pila
 	void mInsertar(int pdato); // Apilar (Push): Inserta un nodo en el tope (aInicio / aP)
-    void mVer(); // Muestra el contenido de la pila desde el tope (aP) hasta la base (aU)
-	int mEliminar();           // Desapilar (Pop): Elimina el nodo del tope y retorna su valor
-	void mDestruir();          // Libera iterativamente todos los nodos de la pila
+    void mVer();               // Muestra el contenido de la pila desde el tope (aP) hasta la base (aU)
+	int mEliminar();           // Elimina el nodo del tope y retorna su valor
+	void mDestruir();          // Libera todos los nodos que se repiten de la pila
 };
