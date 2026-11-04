@@ -1,13 +1,13 @@
 #pragma once
-
-// Nodo de una estructura enlazada.
-class cnodo
-{
+#include <iostream>
+class cnodo {
 public:
-    int ainfo;       // Dato almacenado.
-    cnodo* asig;     // Enlace al siguiente nodo.
+	int ainfo;
+	cnodo* asing; //Clase autoreferenciada 
 
-    explicit cnodo(int pdato = 0) : ainfo(pdato), asig(nullptr) {}
-};
+	cnodo() { asing = NULL; }
+	cnodo (int pdato)
+	{ainfo = pdato; asing = NULL;}
+}; 
 
 
